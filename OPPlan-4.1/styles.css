@@ -1,0 +1,717 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    min-height: 100vh;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 1.5rem;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-title {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.hospital-logo {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+}
+
+header h1 {
+    font-size: 2rem;
+    font-weight: 300;
+    margin: 0;
+}
+
+.settings-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.settings-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+}
+
+
+main {
+    padding: 2rem;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #333;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+}
+
+button[type="submit"],
+.btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: transform 0.2s ease;
+}
+
+button[type="submit"]:hover,
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.patient-form,
+.schedule-form {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+.patient-form h2,
+.schedule-form h2,
+.patients-list h2,
+.scheduled-operations h2,
+.calendar-view h2 {
+    margin-bottom: 1.5rem;
+    color: #333;
+    border-bottom: 2px solid #667eea;
+    padding-bottom: 0.5rem;
+}
+
+.patients-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    transition: background-color 0.3s ease;
+}
+
+.patients-header:hover {
+    background: #e9ecef;
+}
+
+.patients-header h2 {
+    margin: 0;
+    border: none;
+    padding: 0;
+}
+
+.toggle-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #667eea;
+    transition: transform 0.3s ease;
+}
+
+.toggle-btn.expanded .toggle-icon {
+    transform: rotate(180deg);
+}
+
+.patients-content {
+    padding: 0 1rem;
+}
+
+.patients-content.expanded {
+    display: block !important;
+}
+
+.search-bar {
+    margin-bottom: 1rem;
+}
+
+.search-bar input {
+    max-width: 300px;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.patient-card,
+.operation-card {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+}
+
+.patient-card:hover,
+.operation-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.patient-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.patient-info div {
+    display: flex;
+    flex-direction: column;
+}
+
+.patient-info strong {
+    color: #667eea;
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+}
+
+.priority {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.priority.urgenta {
+    background-color: #dc3545;
+    color: white;
+}
+
+.priority.ridicata {
+    background-color: #fd7e14;
+    color: white;
+}
+
+.priority.normala {
+    background-color: #28a745;
+    color: white;
+}
+
+.priority.scazuta {
+    background-color: #6c757d;
+    color: white;
+}
+
+.patient-actions,
+.operation-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.btn-small {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    background-color: #6c757d;
+}
+
+.btn-edit {
+    background-color: #17a2b8;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+}
+
+.btn-schedule {
+    background-color: #28a745;
+}
+
+.calendar-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.calendar-controls button {
+    padding: 0.5rem 1rem;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.calendar-controls button:hover {
+    background-color: #e9ecef;
+}
+
+#current-month {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+#calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+    background-color: #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.calendar-day {
+    background: white;
+    padding: 1rem;
+    min-height: 100px;
+    position: relative;
+}
+
+.calendar-day.other-month {
+    background-color: #f8f9fa;
+    color: #adb5bd;
+}
+
+.calendar-day.today {
+    background-color: #e3f2fd;
+}
+
+.calendar-day.today.admission-day {
+    background-color: #e3f2fd !important;
+    border-left: 4px solid #2196f3;
+}
+
+.calendar-day.today.stationary-day {
+    background-color: #fff8e1 !important;
+    border-left: 4px solid #ffc107;
+}
+
+.calendar-day.today.surgery-day {
+    background-color: #ffebee !important;
+    border-left: 4px solid #f44336;
+}
+
+.calendar-day.today.discharge-day {
+    background-color: #e8f5e8 !important;
+    border-left: 4px solid #4caf50;
+}
+
+.calendar-day.today.ambulatory-day {
+    background: linear-gradient(45deg, #e3f2fd 33%, #ffebee 33%, #ffebee 66%, #e8f5e8 66%) !important;
+    border-left: 4px solid #673ab7;
+}
+
+.day-number {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.calendar-operation {
+    background-color: #667eea;
+    color: white;
+    padding: 0.25rem;
+    margin: 0.125rem 0;
+    border-radius: 3px;
+    font-size: 0.7rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.calendar-patient {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 0.25rem 0.4rem;
+    margin: 0.125rem 0;
+    border-radius: 3px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.calendar-patient:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+/* Stiluri diferite pentru pacienți pe tipuri de zile */
+.admission-day .calendar-patient {
+    background-color: rgba(33, 150, 243, 0.8); /* Albastru */
+}
+
+.stationary-day .calendar-patient {
+    background-color: rgba(255, 193, 7, 0.8); /* Galben */
+    color: #333;
+}
+
+.surgery-day .calendar-patient {
+    background-color: rgba(244, 67, 54, 0.8); /* Roșu */
+}
+
+.discharge-day .calendar-patient {
+    background-color: rgba(76, 175, 80, 0.8); /* Verde */
+}
+
+.ambulatory-day .calendar-patient {
+    background-color: rgba(103, 58, 183, 0.8); /* Violet */
+}
+
+.status {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.status.programata {
+    background-color: #17a2b8;
+    color: white;
+}
+
+.status.in-progress {
+    background-color: #ffc107;
+    color: black;
+}
+
+.status.finalizata {
+    background-color: #28a745;
+    color: white;
+}
+
+.status.anulata {
+    background-color: #dc3545;
+    color: white;
+}
+
+.combined-form {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.two-column-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.left-column,
+.right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+@media (max-width: 768px) {
+    .container {
+        margin: 0;
+        box-shadow: none;
+    }
+    
+    main {
+        padding: 1rem;
+    }
+    
+    .two-column-layout {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .combined-form {
+        padding: 1rem;
+    }
+
+    .logo-title {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+
+    .hospital-logo {
+        height: 40px;
+    }
+
+    header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .patient-info {
+        grid-template-columns: 1fr;
+    }
+    
+    .patient-actions,
+    .operation-actions {
+        flex-direction: column;
+    }
+    
+    .calendar-controls {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    #calendar-grid {
+        grid-template-columns: repeat(7, 1fr);
+        gap: 1px;
+    }
+    
+    .calendar-day {
+        padding: 0.5rem;
+        min-height: 80px;
+    }
+}
+
+/* Ambulatory checkbox styling */
+.ambulatory-group .checkbox-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+    cursor: pointer;
+}
+
+.ambulatory-group .checkbox-wrapper:hover {
+    border-color: #667eea;
+}
+
+.ambulatory-group input[type="checkbox"] {
+    width: auto !important;
+    margin: 0;
+    transform: scale(1.3);
+    cursor: pointer;
+}
+
+.ambulatory-group .checkbox-label {
+    font-weight: 500;
+    color: #333;
+    cursor: pointer;
+    user-select: none;
+}
+
+.ambulatory-group .checkbox-wrapper:focus-within {
+    border-color: #667eea;
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+}
+
+.ambulatory-badge {
+    background-color: #17a2b8;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+/* Calendar day type colors - cu prioritate maximă */
+#calendar-grid .calendar-day.admission-day {
+    background-color: #e3f2fd !important; /* Albastru deschis */
+    border-left: 4px solid #2196f3 !important; /* Albastru intens */
+}
+
+#calendar-grid .calendar-day.stationary-day {
+    background-color: #fff8e1 !important; /* Galben deschis */
+    border-left: 4px solid #ffc107 !important; /* Galben */
+}
+
+#calendar-grid .calendar-day.surgery-day {
+    background-color: #ffebee !important; /* Roșu deschis */
+    border-left: 4px solid #f44336 !important; /* Roșu intens */
+}
+
+#calendar-grid .calendar-day.discharge-day {
+    background-color: #e8f5e8 !important; /* Verde deschis */
+    border-left: 4px solid #4caf50 !important; /* Verde */
+}
+
+/* Pentru operațiile ambulatorii - combinație de culori */
+#calendar-grid .calendar-day.ambulatory-day {
+    background: linear-gradient(45deg, #e3f2fd 33%, #ffebee 33%, #ffebee 66%, #e8f5e8 66%) !important;
+    border-left: 4px solid #673ab7 !important; /* Violet pentru ambulatoriu */
+}
+
+/* Indicatori de zi în calendar */
+.day-type-indicator {
+    position: absolute;
+    top: 0.25rem;
+    right: 0.25rem;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.day-type-indicator.admission {
+    background-color: #2196f3;
+}
+
+.day-type-indicator.stationary {
+    background-color: #ffc107;
+}
+
+.day-type-indicator.surgery {
+    background-color: #f44336;
+}
+
+.day-type-indicator.discharge {
+    background-color: #4caf50;
+}
+
+.day-type-indicator.ambulatory {
+    background-color: #673ab7;
+}
+
+/* Calendar legend */
+.calendar-legend {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+}
+
+.calendar-legend h3 {
+    margin: 0 0 0.75rem 0;
+    font-size: 1rem;
+    color: #333;
+}
+
+.legend-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.legend-color {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.legend-color.admission {
+    background-color: #e3f2fd;
+    border-left: 4px solid #2196f3;
+}
+
+.legend-color.stationary {
+    background-color: #fff8e1;
+    border-left: 4px solid #ffc107;
+}
+
+.legend-color.surgery {
+    background-color: #ffebee;
+    border-left: 4px solid #f44336;
+}
+
+.legend-color.discharge {
+    background-color: #e8f5e8;
+    border-left: 4px solid #4caf50;
+}
+
+.legend-color.ambulatory {
+    background: linear-gradient(45deg, #e3f2fd 33%, #ffebee 33%, #ffebee 66%, #e8f5e8 66%);
+    border-left: 4px solid #673ab7;
+}
+
+.legend-item span {
+    font-size: 0.9rem;
+    color: #555;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .legend-items {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}

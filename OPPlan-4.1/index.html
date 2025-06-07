@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OP-Planner UROMED</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <div class="logo-title">
+                    <img src="logo.png" alt="Logo UROMED" class="hospital-logo">
+                    <h1>OP-Planner UROMED</h1>
+                </div>
+                <button class="settings-btn" onclick="opplan.showSettings()" title="Setări">
+                    ⚙️ Setări
+                </button>
+            </div>
+        </header>
+
+
+        <main>
+            <!-- Tab principal combinat -->
+            <div id="main-tab" class="tab-content active">
+                <section class="combined-form">
+                    <h2>Înregistrare Pacient și Programare Operație</h2>
+                    <form id="combined-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="patient-name">Nume și Prenume:</label>
+                                <input type="text" id="patient-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="patient-phone">Telefon:</label>
+                                <input type="tel" id="patient-phone" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="patient-birthdate">Data Nașterii:</label>
+                                <input type="date" id="patient-birthdate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="patient-age">Vârsta:</label>
+                                <input type="text" id="patient-age" readonly>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="surgery-type">Tip Operație:</label>
+                                <select id="surgery-type" required>
+                                    <option value="">Selectează...</option>
+                                    <option value="appendicita">Apendicită</option>
+                                    <option value="colecistectomie">Colecistectomie</option>
+                                    <option value="hernie">Hernie</option>
+                                    <option value="cardio">Chirurgie Cardio</option>
+                                    <option value="ortopedica">Chirurgie Ortopedică</option>
+                                    <option value="plastica">Chirurgie Plastică</option>
+                                    <option value="alta">Altă operație</option>
+                                    <option value="custom">Scrie manual...</option>
+                                </select>
+                            </div>
+                            <div class="form-group" id="custom-surgery-group" style="display: none;">
+                                <label for="custom-surgery-type">Operație personalizată:</label>
+                                <input type="text" id="custom-surgery-type" placeholder="Introduceți tipul operației...">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="admission-date">Data Internării:</label>
+                                <input type="date" id="admission-date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="surgery-date">Data Operației:</label>
+                                <input type="date" id="surgery-date" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="discharge-date">Data Externării:</label>
+                                <input type="date" id="discharge-date" required>
+                            </div>
+                            <div class="form-group ambulatory-group">
+                                <label for="ambulatory">Tip internare:</label>
+                                <div class="checkbox-wrapper">
+                                    <input type="checkbox" id="ambulatory">
+                                    <span class="checkbox-label">Ambulatoriu</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="surgeon">Chirurg Principal:</label>
+                                <select id="surgeon" required>
+                                    <option value="">Selectează chirurg...</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="notes">Observații:</label>
+                            <textarea id="notes" rows="3"></textarea>
+                        </div>
+                        <button type="submit">Înregistrează și Programează</button>
+                    </form>
+                </section>
+
+                <!-- Calendar imediat după formular -->
+                <section class="calendar-view">
+                    <h2>Calendar Operații</h2>
+                    <div class="calendar-controls">
+                        <button onclick="previousMonth()">← Luna anterioară</button>
+                        <span id="current-month"></span>
+                        <button onclick="nextMonth()">Luna următoare →</button>
+                    </div>
+                    <div class="calendar-legend">
+                        <h3>Legenda culorilor:</h3>
+                        <div class="legend-items">
+                            <div class="legend-item">
+                                <div class="legend-color admission"></div>
+                                <span>Internare</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color stationary"></div>
+                                <span>Staționar</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color surgery"></div>
+                                <span>Operație</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color discharge"></div>
+                                <span>Externare</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color ambulatory"></div>
+                                <span>Ambulatoriu</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="calendar-grid">
+                        <!-- Calendarul va fi generat aici -->
+                    </div>
+                </section>
+
+                <!-- Operații programate -->
+                <section class="scheduled-operations">
+                    <h2>Operații Programate</h2>
+                    <div id="scheduled-container">
+                        <!-- Operațiile programate vor fi afișate aici -->
+                    </div>
+                </section>
+
+                <!-- Lista pacienți la sfârșit -->
+                <section class="patients-list">
+                    <div class="patients-header" onclick="opplan.togglePatientsList()">
+                        <h2>Lista Pacienți</h2>
+                        <button class="toggle-btn" id="patients-toggle">
+                            <span class="toggle-icon">▼</span>
+                        </button>
+                    </div>
+                    <div class="patients-content" id="patients-content" style="display: none;">
+                        <div class="search-bar">
+                            <input type="text" id="search-patients" placeholder="Caută pacient...">
+                        </div>
+                        <div id="patients-container">
+                            <!-- Pacienții vor fi afișați aici -->
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
